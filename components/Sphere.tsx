@@ -1,47 +1,34 @@
-import React, { useMemo, useState } from "react";
-import styles from "./Sphere.module.css";
+import React, { useState } from "react";
 import randomColor from "randomcolor";
 import { ProjectDetails } from "./ProjectDetails";
 import { FullProject } from "../Types/FullProject";
+import { SphereDiv } from "./UI/SphereDiv";
+
+
 
 export const Sphere = ({ project }: { project: FullProject }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
   const rdmColor = randomColor({
     luminosity: "light",
     format: "rgba",
     alpha: 0.9,
     seed: project.id,
   });
-
-  const DEFAULT_STYLE = {
-    backgroundColor: rdmColor,
-    border: "2px solid black",
-    width: "200px",
-    height: "200px",
-    cursor: "pointer",
-    margin: "30px",
-  };
-  const [additionnalStyle, setAdditionnalStyle] = useState<{}>(DEFAULT_STYLE);
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleOpen = () => {
-    setIsOpen(true);
-    setAdditionnalStyle({
-      width: "100vw",
-      height: "100vh",
-      backgroundColor: "white",
-    });
-  };
-
-  const handleClose = () => {
-    setIsOpen(!isOpen);
-    setAdditionnalStyle({ ...additionnalStyle, DEFAULT_STYLE });
-    console.log("close");
-  };
+  
   return (
-    <div
-      className={styles.sphere}
-      style={additionnalStyle}
-      onClick={handleOpen}
+    <SphereDiv
+      onClick={isOpen ? handleClose : handleOpen}
+      isOpen={isOpen}
+      backgroundColor={rdmColor}
     >
       <span hidden={isOpen}>{project.name}</span>
       <ProjectDetails project={project} hidden={!isOpen} />
@@ -54,10 +41,9 @@ export const Sphere = ({ project }: { project: FullProject }) => {
           top: 10,
           left: "95vw",
         }}
-        className={styles.close}
       >
         X Fermer
       </span>
-    </div>
+    </SphereDiv>
   );
 };
