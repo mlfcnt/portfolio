@@ -1,49 +1,50 @@
-import React, { useState } from "react";
-import randomColor from "randomcolor";
-import { ProjectDetails } from "./ProjectDetails";
+import React from "react";
 import { FullProject } from "../Types/FullProject";
-import { SphereDiv } from "./UI/SphereDiv";
-
-
+import styles from "./Sphere.module.css";
+import Link from "next/link";
+import { motion } from "framer-motion";
 
 export const Sphere = ({ project }: { project: FullProject }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  // const projectVariants = {
+  //   initial: { scale: 0.96, y: 30, opacity: 0 },
+  //   enter: {
+  //     scale: 1,
+  //     y: 0,
+  //     opacity: 1,
+  //     transition: { duration: 0.5 },
+  //   },
+  //   hover: {
+  //     scale: 1.1,
+  //     transition: {
+  //       duration: 0.3,
+  //     },
+  //   },
+  // };
 
-  const handleOpen = () => {
-    setIsOpen(true);
+  const variants = {
+    initial: { scale: 0.5, x: 100000, y: 0 },
+    enter: {
+      scale: 1.0,
+      x: 0,
+      y: 0,
+      transition: {
+        duration: 1.2,
+        ease: [0.48, 0.15, 0.25, 0.96],
+      },
+    },
+    hover: {
+      scale: 1.1,
+    },
   };
-
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
-  const rdmColor = randomColor({
-    luminosity: "light",
-    format: "rgba",
-    alpha: 0.9,
-    seed: project.id,
-  });
-  
   return (
-    <SphereDiv
-      onClick={isOpen ? handleClose : handleOpen}
-      isOpen={isOpen}
-      backgroundColor={rdmColor}
-    >
-      <span hidden={isOpen}>{project.name}</span>
-      <ProjectDetails project={project} hidden={!isOpen} />
-      <span
-        onClick={handleClose}
-        hidden={!isOpen}
-        style={{
-          cursor: "pointer",
-          position: "absolute",
-          top: 10,
-          left: "95vw",
-        }}
+    <Link href={`/project/${project.id}`} passHref>
+      <motion.div
+        variants={variants}
+        className={styles.sphere}
+        key={project.id}
       >
-        X Fermer
-      </span>
-    </SphereDiv>
+        {project.name}
+      </motion.div>
+    </Link>
   );
 };

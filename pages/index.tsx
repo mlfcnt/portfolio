@@ -1,7 +1,11 @@
-import { Project } from ".prisma/client";
+import { motion } from "framer-motion";
 import { GetStaticProps } from "next";
 import { Sphere } from "../components/Sphere";
-import prisma from "../lib/prisma";
+import DBClient from "../db/prisma";
+import styles from "../styles/Home.module.css";
+import { FullProject } from "../Types/FullProject";
+
+const prisma = DBClient.getInstance().prisma;
 
 export const getStaticProps: GetStaticProps = async () => {
   const projects: FullProject[] = await prisma.project.findMany({
@@ -18,16 +22,21 @@ export const getStaticProps: GetStaticProps = async () => {
     props: { projects },
   };
 };
-import styles from "../styles/Home.module.css";
-import { FullProject } from "../Types/FullProject";
 
 export default function Home({ projects }: { projects: FullProject[] }) {
   if (!projects.length) return <p>Pas de projets...</p>;
   return (
-    <div className={styles.container}>
-      {projects.map((project) => (
-        <Sphere key={project.id} project={project} />
-      ))}
-    </div>
+    <motion.div
+      initial="initial"
+      animate="enter"
+      exit="exit"
+      variants={{ exit: { transition: { staggerChildren: 0.1 } } }}
+    >
+      <div className={styles.container}>
+        {projects.map((project) => (
+          <Sphere key={project.id} project={project} />
+        ))}
+      </div>
+    </motion.div>
   );
 }
