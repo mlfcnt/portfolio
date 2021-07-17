@@ -17,7 +17,7 @@ export const Layout = ({
       <div className="title">
         <h1>TMN.DEV</h1>
         <p className="subtitle">Web Dev React / NodeJS</p>
-        <p className="subtitle">2 ans d'expérience</p>
+        <p className="subtitle">{"2 ans d'expérience"}</p>
         <p className="subtitle">Bel homme</p>
       </div>
       <section>{children || "main section"}</section>
