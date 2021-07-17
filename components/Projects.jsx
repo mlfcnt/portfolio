@@ -39,10 +39,10 @@ export const Projects = () => {
       </section>
       <div className="arrowContainer">
         <button onClick={scrollLeft} className="arrow" animate={controls}>
-          &larr;
+          ←
         </button>
         <button className="arrow" onClick={scrollRight} animate={controls}>
-          &rarr;
+          →
         </button>
       </div>
     </motion.div>
