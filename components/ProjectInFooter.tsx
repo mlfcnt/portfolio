@@ -2,8 +2,23 @@ import { motion } from "framer-motion";
 import React, { useContext } from "react";
 import { ProjectContext } from "../ProjectProvider";
 
-export const ProjectInFooter = ({ project }: { project: any }) => {
+export const ProjectInFooter = ({ x, project }: { x: any; project: any }) => {
   const { setActiveProject, toggleShowProjects } = useContext(ProjectContext);
+  const projectVariants = {
+    initial: {
+      opacity: 0,
+      x,
+    },
+    hover: {
+      scale: 1.2,
+    },
+    tapped: {
+      scale: 10,
+      transition: {
+        duration: 2,
+      },
+    },
+  };
 
   return (
     <motion.div
@@ -11,17 +26,19 @@ export const ProjectInFooter = ({ project }: { project: any }) => {
       onClick={() => {
         setActiveProject(project), toggleShowProjects();
       }}
-      initial={{ x: 1000 }}
+      variants={projectVariants}
       animate={{
-        x: 0,
-        y: 0,
+        x,
+        opacity: 1,
         transition: {
-          duration: 1.3,
-          type: "spring",
+          duration: 0.4,
         },
       }}
+      initial={"initial"}
+      whileHover={"hover"}
+      whileTap={"tapped"}
     >
-      {project.title}
+      <span>{project.title}</span>
     </motion.div>
   );
 };

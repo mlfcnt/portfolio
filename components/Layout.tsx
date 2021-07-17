@@ -21,9 +21,15 @@ export const Layout = ({
         <p className="subtitle">Bel homme</p>
       </div>
       <section>{children || "main section"}</section>
-      {activeProject && <section>{activeProject.title}</section>}
+      {activeProject && (
+        <section>
+          <h2>{activeProject.title}</h2>
+        </section>
+      )}
 
-      {showProjects && !activeProject && <p>blablabla</p>}
+      {showProjects && !activeProject?.title && (
+        <h2>Texte très important à lire</h2>
+      )}
 
       {showProjects && (
         <AnimatePresence>
