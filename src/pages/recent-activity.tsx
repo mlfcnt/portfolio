@@ -1,5 +1,4 @@
 import { GithubProject, useRecentProjects } from "@/api/github";
-import { NextPageContext } from "next";
 import React from "react";
 type Props = {
   githubProjects: GithubProject[];
@@ -11,7 +10,7 @@ const RecentActivity = () => {
   return (
     <section>
       <h1 className="font-bold text-5xl mb-8" style={{ color: "#f69250" }}>
-        Recent activity
+        Recent experiments
       </h1>
       <div>
         {(githubProjects || []).map((project) => (

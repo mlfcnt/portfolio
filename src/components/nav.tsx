@@ -1,19 +1,20 @@
 import Link from "next/link";
 
-export const Nav = () => (
-  <nav>
-    <ol>
-      <li className="text-4xl">
-        <Link className="active" href={"/"}>
-          Highlighted projects{" "}
-        </Link>
-      </li>
-      <li className="text-4xl">
-        <Link href={"/recent-activity"}>Recent activity</Link>
-      </li>
-      <li className="text-3xl">
-        <Link href={"/"}>Contact</Link>
-      </li>
-    </ol>
-  </nav>
-);
+export const Nav = () => {
+  const navItemStyle = "text-3xl";
+  return (
+    <nav className="mb-8">
+      <ol>
+        <li className={navItemStyle}>
+          <Link href={"/recent-activity"}>Personnal experiments</Link>{" "}
+        </li>
+        <li className={navItemStyle}>
+          <Link href={"/recent-activity"}>Work experiences</Link>
+        </li>
+        <li className={navItemStyle}>
+          <Link href={"/"}>Contact</Link>
+        </li>
+      </ol>
+    </nav>
+  );
+};
